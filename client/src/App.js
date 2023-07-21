@@ -1,7 +1,7 @@
 // import logo from './logo.svg';
 import './App.css';
 import Navbar from './components/Navbar';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import MainPage from './pages/MainPage';
 import CreatePost from './pages/CreatePost';
 
