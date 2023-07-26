@@ -34,7 +34,7 @@ app.post('/api/create',(req,res)=>{
 // get a post by id
 app.get('/api/post/:id',(req,res)=>{
   const postId = req.params.id;
-  console.log(postId)
+  // console.log(postId)
 db.query("SELECT * FROM posts WHERE id=?",postId,(err,result)=>{
   if(err){
     console.log(err)
