@@ -43,6 +43,12 @@ db.query("SELECT * FROM posts WHERE id=?",postId,(err,result)=>{
 })
 })
 
+// Update like
+app.get('/api/update-like/:like_value/:user_id',(req,res)=>{
+  const user = req.params.user_id;
+  const post_like = req.params.like_value;
+  db.query('UPDATE posts SET `likes`=? WHERE id=?',[post_like,user])
+})
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
