@@ -1,27 +1,17 @@
-import React,{useState} from "react";
+import React from "react";
 import {useNavigate} from 'react-router-dom';
 import { FaRegThumbsUp } from 'react-icons/fa';
+import useUpdateLike from "../utils/useUpdateLike";
 
 // import LikeButton from "./LikeButton";
 
 
+
 export default function BlogCard (props){
-  // console.log(props.likes)
-    const [like,setLike] = useState(props.likes)
-    let navigate = useNavigate()
-    const updateLike = async(props) => {
-      let like_value = like+1
-      console.log(like_value,'like value')
-      let user_id = props.id
-      const response = await fetch(`http://localhost:3001/api/update-like/${like_value}/${user_id}`)
-      if(response.status === 200){
-        console.log(like,'prior')
-        setLike(like_value)
-        console.log(like,'after')
-      }
     
-     
-}
+    let navigate = useNavigate()
+    const [like,updateLike] = useUpdateLike(props.likes,props.id)
+
     
 return <>
 <div key={props.id} className=" md:w-6/12 w-8/12 flex flex-col items-center border border- mb-5 mt-5 rounded">
