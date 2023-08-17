@@ -11,6 +11,46 @@ app.use(express.json());
 app.use(cors());
 
 // signup
+app.post("/api/signup", (req, res) => {
+  const user_name = req.body.user_name;
+  const user_email = req.body.user_email;
+  const user_pass = bcrypt.hashSync(req.body.user_pass, 10);
+  console.log("from signup", req.body);
+
+  db.query(
+    `SELECT * FROM users WHERE userName='${user_name}' OR userEmail='${user_email}'`,
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        res.status(404).send({ message: "something went wrong" });
+      } else if (result.length > 0) {
+        res
+          .status(403)
+          .send({
+            message: "user already exists with the given username or email",
+          });
+      } else {
+        try {
+          db.query(
+            "INSERT INTO users(userName,userEmail,userPassword) VALUES (?,?,?)",
+            [user_name, user_email, user_pass],
+            (err, result) => {
+              if (err) {
+                res
+                  .status(404)
+                  .send({ message: "Could not create the user, try again" });
+              } else {
+                res.status(200).send(result);
+              }
+            }
+          );
+        } catch (error) {
+          res.status(500).send(error);
+        }
+      }
+    }
+  );
+});
 
 // signin
 app.post("/api/signin", (req, res) => {
@@ -32,15 +72,13 @@ app.post("/api/signin", (req, res) => {
         if (passwordMatches) {
           // if password matches then send a jwt token
           const token = jwt.sign(req.query, JWT_SECRET, { expiresIn: "7d" });
-          res
-            .status(200)
-            .send({
-              user: req.body,
-              accessToken: token,
-              message: "user signed in successfully",
-            });
+          res.status(200).send({
+            user: req.body,
+            accessToken: token,
+            message: "user signed in successfully",
+          });
         } else {
-          res.status(401).send({ message: "Incorrect password" });
+          res.status(401).send({ message: "Incorrect password2" });
         }
       }
     }

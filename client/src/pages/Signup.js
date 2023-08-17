@@ -3,7 +3,11 @@ import image from "../assets/img/google-24.png";
 import { useState } from "react";
 import Modal from "../components/Modal";
 const Login = () => {
-  const [formData, setFormData] = useState({ user_name: "", user_pass: "" });
+  const [formData, setFormData] = useState({
+    user_name: "",
+    user_email: "",
+    user_pass: "",
+  });
   const [error, setError] = useState("");
   const [showModal, setShowModal] = useState(false);
 
@@ -17,21 +21,29 @@ const Login = () => {
   };
 
   const formReset = () => {
-    setFormData({ user_name: "", user_pass: "" });
+    setFormData({
+      user_name: "",
+      user_email: "",
+      user_pass: "",
+    });
   };
 
   const signInHandler = async (e) => {
     e.preventDefault();
     formReset();
     console.log("inside blogsimp");
-    if (formData.user_name === "" || formData.user_pass === "") {
-      // alert("Username and password field cant be blank");
-      setError("Username and password field cant be blank");
+    if (
+      formData.user_name === "" ||
+      formData.user_email === "" ||
+      formData.user_pass === ""
+    ) {
+      alert("Username and password field cant be blank");
+      setError("Fill all the fields");
       setShowModal(true);
     } else {
       try {
         const res = await axios.post(
-          "http://localhost:3001/api/signin",
+          "http://localhost:3001/api/signup",
           formData
         );
         if (res.status === 200) {
@@ -41,9 +53,9 @@ const Login = () => {
       } catch (error) {
         if (error.response && error.response.status === 404) {
           setError("User Not Found");
-          setShowModal(true);
+          //   setShowModal(true);
         } else if (error.response && error.response.status === 401) {
-          setShowModal(true);
+          //   setShowModal(true);
           setError("Wrong Password");
         }
       }
@@ -53,11 +65,13 @@ const Login = () => {
     <div className="h-[calc(100vh-4rem)] flex justify-center items-center">
       {showModal === true && <Modal msg={error} onClose={closeModal} />}
       <form className="flex flex-col w-9/12 sm:w-96 justify-items-start space-y-6 p-12 border-2 rounded">
-        <h2 className="text-xl font-bold">Welcome back</h2>
-        <p className="text-sm !mt-1">Please enter your details.</p>
+        <h2 className="text-xl font-bold">Sign Up</h2>
+        <p className="text-sm !mt-1">
+          Enter details to create account on blogSimple
+        </p>
         <input
           className="border rounded pl-2"
-          placeholder="Enter your email"
+          placeholder="Enter your username"
           type="text"
           maxLength="10"
           name="user_name"
@@ -66,7 +80,16 @@ const Login = () => {
         />
         <input
           className="border rounded pl-2"
-          placeholder="Enter Password"
+          placeholder="Enter your email"
+          type="text"
+          maxLength="10"
+          name="user_email"
+          value={formData.user_email}
+          onChange={handleForm}
+        />
+        <input
+          className="border rounded pl-2"
+          placeholder="Enter your password"
           type="password"
           maxLength="12"
           name="user_pass"
@@ -77,16 +100,16 @@ const Login = () => {
           className="border rounded px-2 py-1 "
           onClick={(e) => signInHandler(e)}
         >
-          Sign In
+          Sign Up
         </button>
         <button className="border rounded px-2 py-1 ">
-          <span className="flex items-center justify-around">
-            <img src={image} alt="google-login" />
-            Login with Google
+          <span className="flex items-center justify-center">
+            <img className="pr-2" src={image} alt="google-login" />
+            Signup with Google
           </span>
         </button>
         <p className="text-xs">
-          Don't have an account ? <span>Sign Up</span>
+          Already have an account ? <span>Login</span>
         </p>
       </form>
     </div>
