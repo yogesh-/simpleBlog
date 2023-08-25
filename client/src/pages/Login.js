@@ -20,18 +20,18 @@ const Login = () => {
     setFormData({ user_name: "", user_pass: "" });
   };
 
+
   const signInHandler = async (e) => {
     e.preventDefault();
     formReset();
     console.log("inside blogsimp");
     if (formData.user_name === "" || formData.user_pass === "") {
-      // alert("Username and password field cant be blank");
       setError("Username and password field cant be blank");
       setShowModal(true);
     } else {
       try {
         const res = await axios.post(
-          "http://localhost:3001/api/signin",
+          "http://localhost:3001/api/login",
           formData
         );
         if (res.status === 200) {
@@ -58,7 +58,7 @@ const Login = () => {
         <input
           className="border rounded pl-2"
           placeholder="Enter your email"
-          type="text"
+          type="email"
           maxLength="10"
           name="user_name"
           value={formData.user_name}
