@@ -1,20 +1,25 @@
 // import logo from './logo.svg';
 import "./App.css";
 import Navbar from "./components/Navbar";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route,useLocation } from "react-router-dom";
 import MainPage from "./pages/MainPage";
 import CreatePost from "./pages/CreatePost";
 import Post from "./pages/Post";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import Homepage from "./pages/HomePage";
 
 function App() {
+
+  const location = useLocation()
+  const isHomePage = location.pathname === "/home"
   return (
     <>
-      <Navbar />
+      {!isHomePage && <Navbar />}
 
       <Routes>
         <Route exact path="/" element={<MainPage />} />
+        <Route exact path="/home" element={<Homepage/>} />
         <Route path="/create-post" element={<CreatePost />} />
         <Route path="/post/:id" element={<Post />} />
         <Route path="/login" element={<Login />} />

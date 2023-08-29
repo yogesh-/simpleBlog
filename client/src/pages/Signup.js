@@ -6,6 +6,7 @@ import image from "../assets/img/google-24.png";
 import cancel_icon from "../assets/img/icons8-cancel-24.png";
 import Modal from "../components/Modal";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const pass_regex =
   /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
@@ -33,6 +34,7 @@ const schema = yup.object().shape({
 const Signup = () => {
   const [showModal, setShowModal] = useState(false);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -51,9 +53,7 @@ const Signup = () => {
     try {
       const res = await axios.post("http://localhost:3001/api/signup", data);
       if (res.status === 200) {
-        // Logic to navigate the user to the homepage
-        //   console.log(res.data.accessToken);
-        //   localStorage.setItem("token", res.data.accessToken);
+        navigate("/");
       }
     } catch (error) {
       if (error.response.status === 403) {
@@ -66,6 +66,7 @@ const Signup = () => {
   return (
     <div className="h-[calc(100vh-4rem)] flex justify-center items-center">
       {showModal === true && <Modal msg={error} onClose={closeModal} />}
+      
       <form
         onSubmit={handleSubmit(onSubmitHandler)}
         className="flex flex-col w-9/12 sm:w-96 justify-items-start space-y-6 p-12 border-2 rounded"
