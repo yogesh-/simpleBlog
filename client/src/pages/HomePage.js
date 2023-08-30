@@ -1,15 +1,20 @@
 import React from "react";
-import hero_img from "../assets/img/willowy-man-creating-a-website.png"
+import hero_img from "../assets/img/collab.png"
 import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
   const navigate = useNavigate()
   return (
     <>
+    <div className="w-11/12 xl:w-9/12 m-auto">
+      <nav className="flex flex-row justify-between mt-6">
+        <h3 className="text-2xl italic">blogSimple</h3>
+        <button onClick={()=>navigate("/signup")} className="bg-accent px-4 py-2 rounded-full cursor-pointer">Signup</button>
+      </nav>
       <header className="flex flex-row bg-background h-screen">
         {/* <p> this is header section</p> */}
-        <section className="flex flex-col items-start justify-center pl-12 w-6/12">
-          <h1 className="text-4xl font-extrabold dark:text-white">
+        <section className="flex flex-col items-start justify-center  w-6/12">
+          <h1 className="text-6xl font-extrabold dark:text-white ">
             Share your ideas with the World.
           </h1>
           <p className="text-lg flex justify-center mb-3">
@@ -28,7 +33,7 @@ const HomePage = () => {
           <img src={hero_img} alt="man-creating-something"></img>
       </main>
       </header>
-      
+      </div>
     </>
   );
 };

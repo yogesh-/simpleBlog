@@ -3,7 +3,7 @@ import { useState } from "react";
 import BlogCard from "../components/BlogCard";
 const moment = require('moment');
 
-export default function MainPage() {
+export default function UserFeed() {
   const [data,setData] = useState()
     const fetchData = async () => {
         const res_data =  await fetch('http://localhost:3001/api/get-blog')

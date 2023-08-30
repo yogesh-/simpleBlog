@@ -9,11 +9,13 @@ export default function Navbar() {
     <nav className='bg-accent p-5 md:flex md:justify-between flex flex-col sticky h-16'>
       <div className='flex justify-between'>
        <div>
-       <a href="/">blogSimple</a>
+       <a href="/home">blogSimple</a>
         </div>
         <div className='md:space-x-4 flex-col  md:inline hidden'>
-        <Link to="/"><a href="!#" className='hover:cursor-pointer hover:text-white '>Main Page</a></Link> 
+       
        <Link to="/create-post"> <a href="!#" className='hover:cursor-pointer hover:text-white '>Create Post</a></Link>
+       <Link to="#"><a href="!#" className='hover:cursor-pointer hover:text-white '>My Profile</a></Link>
+       <Link to="#"><a href="!#" className='hover:cursor-pointer hover:text-white '>Logout</a></Link>
         </div>
 
         

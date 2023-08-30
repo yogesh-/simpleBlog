@@ -2,7 +2,9 @@ import axios from "axios";
 import image from "../assets/img/google-24.png";
 import { useState } from "react";
 import Modal from "../components/Modal";
+import { useNavigate } from "react-router-dom";
 const Login = () => {
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({ user_name: "", user_pass: "" });
   const [error, setError] = useState("");
   const [showModal, setShowModal] = useState(false);
@@ -24,7 +26,6 @@ const Login = () => {
   const signInHandler = async (e) => {
     e.preventDefault();
     formReset();
-    console.log("inside blogsimp");
     if (formData.user_name === "" || formData.user_pass === "") {
       setError("Username and password field cant be blank");
       setShowModal(true);
@@ -37,6 +38,7 @@ const Login = () => {
         if (res.status === 200) {
           console.log(res.data.accessToken);
           localStorage.setItem("token", res.data.accessToken);
+          navigate("/home")
         }
       } catch (error) {
         if (error.response && error.response.status === 404) {
@@ -57,9 +59,9 @@ const Login = () => {
         <p className="text-sm !mt-1">Please enter your details.</p>
         <input
           className="border rounded pl-2"
-          placeholder="Enter your email"
+          placeholder="Enter your username"
           type="email"
-          maxLength="10"
+          maxLength="15"
           name="user_name"
           value={formData.user_name}
           onChange={handleForm}
