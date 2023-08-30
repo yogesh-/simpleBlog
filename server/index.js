@@ -15,13 +15,11 @@ app.post("/api/signup", (req, res) => {
   const user_name = req.body.user_name;
   const user_email = req.body.user_email;
   const user_pass = bcrypt.hashSync(req.body.user_pass, 10);
-  console.log("from signup", req.body);
 
   db.query(
     `SELECT * FROM users WHERE userName='${user_name}' OR userEmail='${user_email}'`,
     (err, result) => {
       if (err) {
-        console.log(err);
         res.status(404).send({ message: "something went wrong" });
       } else if (result.length > 0) {
         res
@@ -52,8 +50,8 @@ app.post("/api/signup", (req, res) => {
   );
 });
 
-// signin
-app.post("/api/signin", (req, res) => {
+// Login
+app.post("/api/login", (req, res) => {
   const user_pass = req.body.user_pass;
   console.log("user pass", req.body);
   console.log("line18", req.body.user_name, req.body.user_pass);
