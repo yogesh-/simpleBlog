@@ -6,7 +6,7 @@ const cors = require("cors");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const JWT_SECRET = "swfefw35cdfbbdsvvfd";
-
+const AuthenticateToken = require("./utilities/AuthenticateToken");
 app.use(express.json());
 app.use(cors());
 
@@ -22,11 +22,9 @@ app.post("/api/signup", (req, res) => {
       if (err) {
         res.status(404).send({ message: "something went wrong" });
       } else if (result.length > 0) {
-        res
-          .status(403)
-          .send({
-            message: "user already exists with the given username or email",
-          });
+        res.status(403).send({
+          message: "user already exists with the given username or email",
+        });
       } else {
         try {
           db.query(
@@ -84,7 +82,7 @@ app.post("/api/login", (req, res) => {
 });
 
 // get all the blog post data
-app.get("/api/get-blog", (req, res) => {
+app.get("/api/get-blog", AuthenticateToken, (req, res) => {
   db.query("SELECT * FROM posts", (err, result) => {
     if (err) {
       console.log(err);
@@ -94,7 +92,7 @@ app.get("/api/get-blog", (req, res) => {
 });
 
 // create a new post
-app.post("/api/create", (req, res) => {
+app.post("/api/create", AuthenticateToken, (req, res) => {
   const title = req.body.blogTitle;
   const blog = req.body.blogPost;
   const user = req.body.user;
@@ -111,7 +109,7 @@ app.post("/api/create", (req, res) => {
 });
 
 // get a post by id
-app.get("/api/post/:id", (req, res) => {
+app.get("/api/post/:id", AuthenticateToken, (req, res) => {
   const postId = req.params.id;
   // console.log(postId)
   db.query("SELECT * FROM posts WHERE id=?", postId, (err, result) => {
@@ -123,20 +121,24 @@ app.get("/api/post/:id", (req, res) => {
 });
 
 // Update like
-app.get("/api/update-like/:like_value/:user_id", (req, res) => {
-  const user = req.params.user_id;
-  const post_like = req.params.like_value;
-  db.query(
-    "UPDATE posts SET `likes`=? WHERE id=?",
-    [post_like, user],
-    (err, result) => {
-      if (err) {
-        console.log(err);
+app.get(
+  "/api/update-like/:like_value/:user_id",
+  AuthenticateToken,
+  (req, res) => {
+    const user = req.params.user_id;
+    const post_like = req.params.like_value;
+    db.query(
+      "UPDATE posts SET `likes`=? WHERE id=?",
+      [post_like, user],
+      (err, result) => {
+        if (err) {
+          console.log(err);
+        }
+        res.status(200).send(result);
       }
-      res.status(200).send(result);
-    }
-  );
-});
+    );
+  }
+);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
