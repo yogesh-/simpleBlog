@@ -13,7 +13,7 @@ const HomePage = () => {
             onClick={() => navigate("/signup")}
             className="bg-accent px-4 py-2 rounded-full cursor-pointer text-background"
           >
-            Signup
+            Join blogSimple
           </button>
         </nav>
         <header className="flex flex-row bg-background h-screen">

@@ -53,7 +53,9 @@ const Signup = () => {
     try {
       const res = await axios.post("http://localhost:3001/api/signup", data);
       if (res.status === 200) {
-        navigate("/");
+        localStorage.setItem("token", res.data.accessToken);
+        localStorage.setItem("isAuthenticated", true);
+        navigate("/home");
       }
     } catch (error) {
       if (error.response.status === 403) {
@@ -66,7 +68,7 @@ const Signup = () => {
   return (
     <div className="h-[calc(100vh-4rem)] flex justify-center items-center">
       {showModal === true && <Modal msg={error} onClose={closeModal} />}
-      
+
       <form
         onSubmit={handleSubmit(onSubmitHandler)}
         className="flex flex-col w-9/12 sm:w-96 justify-items-start space-y-6 p-12 border-2 rounded"
@@ -143,7 +145,13 @@ const Signup = () => {
           </span>
         </button>
         <p className="text-xs">
-          Already have an account ? <span>Login</span>
+          Already have an account ?{" "}
+          <a
+            href="/login"
+            className="font-semibold hover:cursor-pointer underline"
+          >
+            Login
+          </a>
         </p>
       </form>
     </div>

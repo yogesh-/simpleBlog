@@ -4,7 +4,7 @@ import { useState } from "react";
 import Modal from "../components/Modal";
 import { useNavigate } from "react-router-dom";
 const Login = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({ user_name: "", user_pass: "" });
   const [error, setError] = useState("");
   const [showModal, setShowModal] = useState(false);
@@ -22,7 +22,6 @@ const Login = () => {
     setFormData({ user_name: "", user_pass: "" });
   };
 
-
   const signInHandler = async (e) => {
     e.preventDefault();
     formReset();
@@ -38,7 +37,8 @@ const Login = () => {
         if (res.status === 200) {
           console.log(res.data.accessToken);
           localStorage.setItem("token", res.data.accessToken);
-          navigate("/home")
+          localStorage.setItem("isAuthenticated", true);
+          navigate("/home");
         }
       } catch (error) {
         if (error.response && error.response.status === 404) {
@@ -88,7 +88,13 @@ const Login = () => {
           </span>
         </button>
         <p className="text-xs">
-          Don't have an account ? <span>Sign Up</span>
+          Don't have an account ?{" "}
+          <a
+            href="/signup"
+            className="font-semibold hover:cursor-pointer underline"
+          >
+            Sign Up
+          </a>
         </p>
       </form>
     </div>

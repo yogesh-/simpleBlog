@@ -36,7 +36,14 @@ app.post("/api/signup", (req, res) => {
                   .status(404)
                   .send({ message: "Could not create the user, try again" });
               } else {
-                res.status(200).send(result);
+                const token = jwt.sign(req.query, JWT_SECRET, {
+                  expiresIn: "7d",
+                });
+                res.status(200).send({
+                  accessToken: token,
+                  message: "user created successfully",
+                });
+                // send jwt token
               }
             }
           );
@@ -51,8 +58,6 @@ app.post("/api/signup", (req, res) => {
 // Login
 app.post("/api/login", (req, res) => {
   const user_pass = req.body.user_pass;
-  console.log("user pass", req.body);
-  console.log("line18", req.body.user_name, req.body.user_pass);
 
   db.query(
     `SELECT * FROM users WHERE userName = '${req.body.user_name}'`,
@@ -69,12 +74,11 @@ app.post("/api/login", (req, res) => {
           // if password matches then send a jwt token
           const token = jwt.sign(req.query, JWT_SECRET, { expiresIn: "7d" });
           res.status(200).send({
-            user: req.body,
             accessToken: token,
-            message: "user signed in successfully",
+            message: "user logged in successfully",
           });
         } else {
-          res.status(401).send({ message: "Incorrect password2" });
+          res.status(401).send({ message: "Incorrect password" });
         }
       }
     }
