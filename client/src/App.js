@@ -31,6 +31,7 @@ function App() {
           exact
           path="/home"
           element={<ProtectedRoute element={<UserFeed />} />}
+          // element={<UserFeed />}
         />
         <Route
           path="/create-post"
