@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import DarkModeToggle from "./DarkModeToggle";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,7 +10,7 @@ export default function Navbar() {
     localStorage.removeItem("isAuthenticated");
   };
   return (
-    <nav className="bg-accent p-5 md:flex md:justify-between flex flex-col sticky h-16">
+    <nav className="bg-accent dark:bg-black p-5 md:flex md:justify-between flex flex-col sticky h-16 dark:border-b-2 border-accent">
       <div className="flex justify-between">
         {/* {window.location.href.indexOf('login') > -1 || window.location.href.indexOf('signup') > -1 ?  } */}
 
@@ -22,12 +23,18 @@ export default function Navbar() {
         <div className="md:space-x-4 flex-col  md:inline hidden">
           <Link to="/create-post">
             {" "}
-            <a href="!#" className="hover:cursor-pointer hover:text-white ">
+            <a
+              href="!#"
+              className="hover:cursor-pointer hover:text-white dark:text-background "
+            >
               Create Post
             </a>
           </Link>
           <Link to="#">
-            <a href="!#" className="hover:cursor-pointer hover:text-white ">
+            <a
+              href="!#"
+              className="hover:cursor-pointer hover:text-white  dark:text-background"
+            >
               My Profile
             </a>
           </Link>
@@ -35,11 +42,12 @@ export default function Navbar() {
             <a
               onClick={userLogout}
               href="!#"
-              className="hover:cursor-pointer hover:text-white "
+              className="hover:cursor-pointer hover:text-white  dark:text-background "
             >
               Logout
             </a>
           </Link>
+          <DarkModeToggle />
         </div>
 
         {/* mobile menu button */}

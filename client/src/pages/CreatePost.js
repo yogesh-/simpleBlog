@@ -20,11 +20,11 @@ export default function CreatePost() {
   };
 
   return (
-    <div className="  w-screen h-screen flex justify-center items-center">
-      <div className="w-7/12 border py-4 border-black rounded flex flex-col items-center justify-center space-y-5">
-        <p>Write your blog post</p>
+    <div className="  w-screen h-screen flex justify-center items-center dark:bg-black">
+      <div className="w-7/12 border py-4 border-black dark:border-background rounded flex flex-col items-center justify-center space-y-5">
+        <p className="dark:text-background">Write your post</p>
         <input
-          className="border border-black"
+          className="border border-black rounded"
           type="text"
           placeholder="Enter your username"
           value={userName}
@@ -33,7 +33,7 @@ export default function CreatePost() {
           }}
         />
         <input
-          className="border border-black"
+          className="border border-black rounded"
           type="text"
           placeholder="Title"
           style={{ width: "390px" }}
@@ -44,7 +44,7 @@ export default function CreatePost() {
         />
 
         <textarea
-          className="border-4 border-sky-500"
+          className="border border-sky-500 rounded"
           type="textarea"
           rows="8"
           cols="50"
@@ -55,7 +55,7 @@ export default function CreatePost() {
           }}
         />
         <button
-          className="border border-green-300 bg-white p-1 rounded hover:bg-blue-300"
+          className="border border-green-300 bg-white p-1 rounded hover:bg-blue-300 dark:bg-background"
           onClick={(e) => submitPost(e)}
         >
           Submit

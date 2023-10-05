@@ -26,7 +26,7 @@ export default function UserFeed() {
   }, []);
   return (
     <div className="flex justify-center">
-      <div className="md:w-7/12 bg-secondary h-screen flex flex-col items-center overflow-auto no-scrollbar">
+      <div className="md:w-12/12  bg-secondary dark:bg-black h-screen flex flex-col items-center overflow-auto no-scrollbar">
         {data?.map((item) => {
           return <BlogCard key={item.id} {...item} />;
         })}

@@ -11,7 +11,7 @@ const HomePage = () => {
           <h3 className="text-2xl italic">blogSimple</h3>
           <button
             onClick={() => navigate("/signup")}
-            className="bg-accent px-4 py-2 rounded-full cursor-pointer text-background"
+            className="bg-accent   px-4 py-2 rounded-full cursor-pointer text-background"
           >
             Join blogSimple
           </button>
@@ -31,13 +31,13 @@ const HomePage = () => {
             <span className="flex flex-row space-x-4">
               <button
                 onClick={() => navigate("/signup")}
-                className="bg-accent px-4 py-2 rounded-full cursor-pointer text-background"
+                className="bg-accent  px-4 py-2 rounded-full cursor-pointer text-background"
               >
                 Signup
               </button>
               <button
                 onClick={() => navigate("/login")}
-                className="bg-primary px-4 py-2 rounded-full cursor-pointer text-background"
+                className="bg-primary  px-4 py-2 rounded-full cursor-pointer text-background"
               >
                 Login
               </button>
