@@ -1,13 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaRegThumbsUp } from "react-icons/fa";
-import useUpdateLike from "../utils/useUpdateLike";
+import { FaRegThumbsUp, FaThumbsUp } from "react-icons/fa";
 
-// import LikeButton from "./LikeButton";
+import useUpdateLike from "../utils/useUpdateLike";
 
 export default function BlogCard(props) {
   let navigate = useNavigate();
+  const [isLiked, setIsLiked] = useState(false);
   const [like, updateLike] = useUpdateLike(props.likes, props.id);
+  const [likeCount, setLikeCount] = useState(props.likes);
+  const likeHandler = () => {
+    if (isLiked) {
+      console.log("like count", likeCount);
+      setLikeCount(likeCount - 1);
+    } else {
+      setLikeCount(likeCount + 1);
+    }
+    setIsLiked(!isLiked);
+    console.log("clicked");
+  };
 
   return (
     <>
@@ -30,13 +41,12 @@ export default function BlogCard(props) {
             : props.post_text}
         </p>
         <div className="flex items-center justify-center cursor-pointer dark:text-background">
-          <span onClick={() => updateLike(props)}>
-            <FaRegThumbsUp />
+          <span onClick={likeHandler}>
+            {isLiked ? <FaThumbsUp /> : <FaRegThumbsUp />}
           </span>
-          <p>&nbsp;{like}</p>
+          {/* <p>&nbsp;{props.likes}</p> */}
+          <p>&nbsp;{likeCount}</p>
         </div>
-        {/* <LikeButton like={props.likes} id={props.id}/> */}
-
         <div className="flex space-x-2 mb-2 dark:text-background">
           <h4 className="italic">
             Posted by {props.user_name} on {props.date_posted}
