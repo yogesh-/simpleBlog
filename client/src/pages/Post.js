@@ -11,6 +11,7 @@ const Post = () => {
   let { id } = useParams();
   const [data, setData] = useState();
   const user_token = localStorage.getItem("token");
+  const [like, updateLike] = useUpdateLike(data?.likes, data?.id);
 
   useEffect(() => {
     axios
@@ -19,13 +20,10 @@ const Post = () => {
           Authorization: `Bearer ${user_token}`,
         },
       })
-      .then((data) => setData(data.data[0]));
-  }, [id]);
-
-  const [like, updateLike] = useUpdateLike(data?.likes, data?.id);
-
-  // the {like} on line 43 does not render initially. Once clicked it renders with updated value.
-  // check in browser
+      .then((res) => {
+        setData(res.data[0]);
+      });
+  }, [id, like,user_token]);
 
   return (
     <>
