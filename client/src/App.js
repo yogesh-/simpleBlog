@@ -10,6 +10,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Homepage from "./pages/HomePage";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Profile from "./pages/Profile";
 
 function App() {
   const location = useLocation();
@@ -41,6 +42,7 @@ function App() {
           path="/post/:id"
           element={<ProtectedRoute element={<Post />} />}
         />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
       </Routes>

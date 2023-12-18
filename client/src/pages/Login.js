@@ -35,9 +35,10 @@ const Login = () => {
           formData
         );
         if (res.status === 200) {
-          console.log(res.data.accessToken);
+          // console.log(res.data.accessToken);
           localStorage.setItem("token", res.data.accessToken);
           localStorage.setItem("isAuthenticated", true);
+          localStorage.setItem("user_name", res.data.user_name);
           navigate("/home");
         }
       } catch (error) {

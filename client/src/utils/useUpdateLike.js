@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 
 const useUpdateLike = (initialLike, id) => {
-  console.log(initialLike, id, "from useUpdateLike");
+  // console.log(initialLike, id, "from useUpdateLike");
   const user_token = localStorage.getItem("token");
   const [like, setLike] = useState(initialLike);
   let like_value = initialLike + 1;
@@ -26,7 +26,7 @@ const useUpdateLike = (initialLike, id) => {
       console.log("something went wrong", error);
     }
   };
-  console.log("like updated", like);
+  // console.log("like updated", like);
   return [like, updateLike];
 };
 

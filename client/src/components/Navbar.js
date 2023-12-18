@@ -30,7 +30,7 @@ export default function Navbar() {
               Create Post
             </a>
           </Link>
-          <Link to="#">
+          <Link to="/profile">
             <a
               href="!#"
               className="hover:cursor-pointer hover:text-white  dark:text-background"

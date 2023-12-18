@@ -17,7 +17,7 @@ const LikeButton = ({ like, id }) => {
 
   const handleLikeClick = (like, id) => {
     updateLikeCount(like, id);
-    console.log(like, id);
+    // console.log(like, id);
   };
 
   return (
