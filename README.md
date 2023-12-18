@@ -12,7 +12,7 @@ A Full Stack application built using React, Node, Express, MySQL and TailwindCSS
 - Password encryption using bcrypt
 - CRUD endpoints for post and user
 
-##DEMO VIDEO
+## DEMO VIDEO
 
 https://github.com/yogesh-/simpleBlog/assets/7193961/d23ae78f-4be3-494b-a61a-0e263fe81619
 
