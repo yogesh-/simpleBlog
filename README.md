@@ -9,10 +9,9 @@ A Full Stack application built using React, Node, Express, MySQL and TailwindCSS
 - Responsive Pages
 - Like Post
 
-TBD - Dark Mode, Add commenting feature, comment likes
 
 ##Backend Features
 
-- JWT token generation on successful login
+- JWT token generation on successful login for authorization
 - Password encryption using bcrypt
 - CRUD endpoints for post and user
