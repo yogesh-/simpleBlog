@@ -58,7 +58,6 @@ app.post("/api/signup", (req, res) => {
 // Login
 app.post("/api/login", (req, res) => {
   const user_pass = req.body.user_pass;
-
   db.query(
     `SELECT * FROM users WHERE userName = '${req.body.user_name}'`,
     (err, result) => {
@@ -67,13 +66,13 @@ app.post("/api/login", (req, res) => {
       } else if (result.length === 0) {
         res.status(404).send({ message: "User not Found2" });
       } else {
-        console.log("from else block", result);
         const hashedPass = result[0].userPassword;
         const passwordMatches = bcrypt.compareSync(user_pass, hashedPass);
         if (passwordMatches) {
           // if password matches then send a jwt token
           const token = jwt.sign(req.query, JWT_SECRET, { expiresIn: "7d" });
           res.status(200).send({
+            user_name: req.body.user_name,
             accessToken: token,
             message: "user logged in successfully",
           });
@@ -124,19 +123,54 @@ app.get("/api/post/:id", AuthenticateToken, (req, res) => {
   });
 });
 
+// get user's profile photo
+
+app.get("/api/user/photo/:userName", AuthenticateToken, (req, res) => {
+  const userName = req.params.userName;
+
+  db.query(
+    "SELECT userPhoto FROM users WHERE userName=?",
+    userName,
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      res.status(200).send(result);
+    }
+  );
+});
+
+// get user's posts
+
+app.get("/api/user/posts/:userName", AuthenticateToken, (req, res) => {
+  const userName = req.params.userName;
+
+  db.query(
+    "SELECT id, title, post_text, user_name, date_posted, likes FROM posts WHERE user_name = ?",
+    userName,
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      res.status(200).send(result);
+    }
+  );
+});
+
 // Update like
-app.get(
+app.put(
   "/api/update-like/:like_value/:user_id",
   AuthenticateToken,
   (req, res) => {
     const user = req.params.user_id;
     const post_like = req.params.like_value;
+
     db.query(
       "UPDATE posts SET `likes`=? WHERE id=?",
       [post_like, user],
       (err, result) => {
         if (err) {
-          console.log(err);
+          console.log(err, "from backend update liker");
         }
         res.status(200).send(result);
       }
